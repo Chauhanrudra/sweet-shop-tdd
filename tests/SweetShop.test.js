@@ -143,3 +143,38 @@ describe("SweetShop - Restock Sweets", () => {
     }).toThrow("Sweet with ID 9999 not found");
   });
 });
+
+describe('SweetShop - Search Sweets', () => {
+  let shop;
+
+  beforeEach(() => {
+    shop = new SweetShop();
+
+    shop.addSweet({ id: 1, name: 'Kaju Katli', category: 'Nut-Based', price: 50, quantity: 20 });
+    shop.addSweet({ id: 2, name: 'Gulab Jamun', category: 'Milk-Based', price: 10, quantity: 30 });
+    shop.addSweet({ id: 3, name: 'Chocolate Barfi', category: 'Chocolate', price: 70, quantity: 15 });
+  });
+
+  it('should search sweets by name', () => {
+    const result = shop.searchSweets({ name: 'Kaju Katli' });
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe('Kaju Katli');
+  });
+
+  it('should search sweets by category', () => {
+    const result = shop.searchSweets({ category: 'Milk-Based' });
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe('Gulab Jamun');
+  });
+
+  it('should search sweets by price range', () => {
+    const result = shop.searchSweets({ minPrice: 15, maxPrice: 60 });
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe('Kaju Katli');
+  });
+
+  it('should return multiple sweets matching filters', () => {
+    const result = shop.searchSweets({ maxPrice: 80 });
+    expect(result.length).toBe(3);
+  });
+});
