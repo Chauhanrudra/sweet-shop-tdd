@@ -47,6 +47,14 @@ class SweetShop {
       return matchName && matchCategory && matchMin && matchMax;
     });
   }
+  sortSweets(by = "name", order = "asc") {
+    const compare = (a, b) => {
+      if (a[by] < b[by]) return order === "asc" ? -1 : 1;
+      if (a[by] > b[by]) return order === "asc" ? 1 : -1;
+      return 0;
+    };
+    return [...this.inventory].sort(compare);//sort with custom comparator
+  }
 }
 
 module.exports = SweetShop;
