@@ -29,13 +29,23 @@ class SweetShop {
     }
     sweet.quantity -= quantity;
   }
-  
+
   restockSweet(id, quantity) {
     const sweet = this.inventory.find((s) => s.id === id);
     if (!sweet) {
       throw new Error(`Sweet with ID ${id} not found`);
     }
     sweet.quantity += quantity;
+  }
+
+  searchSweets({ name, category, minPrice, maxPrice }) {
+    return this.inventory.filter((sweet) => {
+      const matchName = name ? sweet.name === name : true;
+      const matchCategory = category ? sweet.category === category : true;
+      const matchMin = minPrice !== undefined ? sweet.price >= minPrice : true;
+      const matchMax = maxPrice !== undefined ? sweet.price <= maxPrice : true;
+      return matchName && matchCategory && matchMin && matchMax;
+    });
   }
 }
 
