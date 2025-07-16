@@ -14,11 +14,13 @@ class SweetShop {
   getAllSweets() {
     return this.inventory;
   }
+
   deleteSweet(id) {
     this.inventory = this.inventory.filter((sweet) => sweet.id !== id);
   }
-    purchaseSweet(id, quantity) {
-    const sweet = this.inventory.find(s => s.id === id);
+
+  purchaseSweet(id, quantity) {
+    const sweet = this.inventory.find((s) => s.id === id);
     if (!sweet) {
       throw new Error(`Sweet with ID ${id} not found`);
     }
@@ -27,7 +29,14 @@ class SweetShop {
     }
     sweet.quantity -= quantity;
   }
-
+  
+  restockSweet(id, quantity) {
+    const sweet = this.inventory.find((s) => s.id === id);
+    if (!sweet) {
+      throw new Error(`Sweet with ID ${id} not found`);
+    }
+    sweet.quantity += quantity;
+  }
 }
 
 module.exports = SweetShop;
