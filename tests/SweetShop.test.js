@@ -78,3 +78,41 @@ describe('SweetShop - Validation', () => {
     }).toThrow('Sweet with ID 1001 already exists');
   });
 });
+
+describe('SweetShop - Purchase Sweets', () => {
+  it('should reduce quantity when a sweet is purchased', () => {
+    const shop = new SweetShop();
+
+    const sweet = {
+      id: 1001,
+      name: 'Kaju Katli',
+      category: 'Nut-Based',
+      price: 50,
+      quantity: 20,
+    };
+
+    shop.addSweet(sweet);
+    shop.purchaseSweet(1001, 5); // purchase 5 units
+
+    const updated = shop.getAllSweets().find(s => s.id === 1001);
+    expect(updated.quantity).toBe(15);
+  });
+
+  it('should throw error if trying to purchase more than available stock', () => {
+    const shop = new SweetShop();
+
+    const sweet = {
+      id: 1002,
+      name: 'Gulab Jamun',
+      category: 'Milk-Based',
+      price: 10,
+      quantity: 10,
+    };
+
+    shop.addSweet(sweet);
+
+    expect(() => {
+      shop.purchaseSweet(1002, 20);
+    }).toThrow('Insufficient stock for sweet ID 1002');
+  });
+});
