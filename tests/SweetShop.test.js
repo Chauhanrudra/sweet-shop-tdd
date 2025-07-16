@@ -178,3 +178,30 @@ describe('SweetShop - Search Sweets', () => {
     expect(result.length).toBe(3);
   });
 });
+
+describe('SweetShop - Sort Sweets', () => {
+  let shop;
+
+  beforeEach(() => {
+    shop = new SweetShop();
+
+    shop.addSweet({ id: 1, name: 'Kaju Katli', category: 'Nut-Based', price: 50, quantity: 20 });
+    shop.addSweet({ id: 2, name: 'Gulab Jamun', category: 'Milk-Based', price: 10, quantity: 30 });
+    shop.addSweet({ id: 3, name: 'Chocolate Barfi', category: 'Chocolate', price: 70, quantity: 15 });
+  });
+
+  it('should sort sweets by name ascending', () => {
+    const result = shop.sortSweets('name', 'asc');
+    expect(result.map(s => s.name)).toEqual(['Chocolate Barfi', 'Gulab Jamun', 'Kaju Katli']);
+  });
+
+  it('should sort sweets by price descending', () => {
+    const result = shop.sortSweets('price', 'desc');
+    expect(result.map(s => s.price)).toEqual([70, 50, 10]);
+  });
+
+  it('should sort sweets by quantity ascending', () => {
+    const result = shop.sortSweets('quantity', 'asc');
+    expect(result.map(s => s.quantity)).toEqual([15, 20, 30]);
+  });
+});
