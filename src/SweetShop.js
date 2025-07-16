@@ -4,6 +4,10 @@ class SweetShop {
   }
 
   addSweet(sweet) {
+    const exists = this.inventory.some((item) => item.id === sweet.id);
+    if (exists) {
+      throw new Error(`Sweet with ID ${sweet.id} already exists`);
+    }
     this.inventory.push(sweet);
   }
 
