@@ -19,3 +19,34 @@ describe('SweetShop - Add Sweets', () => {
     expect(inventory[0]).toEqual(sweet);
   });
 });
+
+describe('SweetShop - Delete Sweets', () => {
+  it('should delete a sweet by ID', () => {
+    const shop = new SweetShop();
+
+    const sweet1 = {
+      id: 1001,
+      name: 'Kaju Katli',
+      category: 'Nut-Based',
+      price: 50,
+      quantity: 20,
+    };
+
+    const sweet2 = {
+      id: 1002,
+      name: 'Gulab Jamun',
+      category: 'Milk-Based',
+      price: 10,
+      quantity: 50,
+    };
+
+    shop.addSweet(sweet1);
+    shop.addSweet(sweet2);
+
+    shop.deleteSweet(1001);
+    const inventory = shop.getAllSweets();
+
+    expect(inventory.length).toBe(1);
+    expect(inventory[0]).toEqual(sweet2);
+  });
+});
