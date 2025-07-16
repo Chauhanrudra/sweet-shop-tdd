@@ -50,3 +50,31 @@ describe('SweetShop - Delete Sweets', () => {
     expect(inventory[0]).toEqual(sweet2);
   });
 });
+
+describe('SweetShop - Validation', () => {
+  it('should not allow adding a sweet with duplicate ID', () => {
+    const shop = new SweetShop();
+
+    const sweet1 = {
+      id: 1001,
+      name: 'Kaju Katli',
+      category: 'Nut-Based',
+      price: 50,
+      quantity: 20,
+    };
+    //obj with same id to check validation
+    const sweetDuplicate = {
+      id: 1001,
+      name: 'Duplicate Katli',
+      category: 'Nut-Based',
+      price: 60,
+      quantity: 30,
+    };
+
+    shop.addSweet(sweet1);
+    
+    expect(() => {
+      shop.addSweet(sweetDuplicate);
+    }).toThrow('Sweet with ID 1001 already exists');
+  });
+});
