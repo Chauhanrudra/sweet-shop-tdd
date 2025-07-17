@@ -24,3 +24,7 @@ npm test
 
 ### Assumptions 
 I observed ambiguity around user roles. I assumed a single unified user (not separate admin and user roles), since the timeline and scope suggest a focus on core logic over multi-role systems.
+
+## Test Coverage Report
+
+[View Test Report](coverage/lcov-report/index.html)
